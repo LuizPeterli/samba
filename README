@@ -1,0 +1,55 @@
+##### smb, conf #####
+
+The samba settings described in the file are well commented out, explaining what each option enables or does not enable for file sharing operation in Lnux environments.
+
+The file itself chooses security by limiting the number of connections, users, and timeouts. It is also possible through other smb.conf settings to limit the bandwidth of each connection, but more important is the scheduling of permissions on folders or files assigned to users or groups.
+
+The settings of this smb.conf file should work on all Linux systems, however I always use it in Ubuntu or Debian, they are geared towards workgroup sharing, if this is the case first of all, the user must add the samba:
+
+#smbpasswd -a USER
+
+Then add the group you are sharing the folders or files on the system:
+
+#groupadd GROUP
+
+Next you must add the user created in samba to the newly created group in the system:
+
+#addgroup USER GROUP
+
+Make sure you change some important fields inside the smb.conf file such as:
+
+# Samba server name on the network
+server string = Invader <LINUX STATION NAME
+netbios name = Invader <LINUX STATION NAME
+ 
+//
+
+[Shared] <SHARING NAME
+# Sharing comment
+comment = Private sharing <SHARING PATH
+
+//
+
+# Who can write to the directory
+write list = GROUP, USER <GROUP AND / OR USER WITH PERMISSION IN THE DIRECTORY
+# Who can read the directory
+read list = GROUP, USER <GROUP AND / OR USER WITH PERMISSION IN THE DIRECTORY
+# Who can access the directory
+valid users = GROUP, USER <GROUP AND / OR USER WITH PERMISSION IN THE DIRECTORY
+# Directory admin user
+admin users = USER <SAMBA ADMINISTRATOR USER
+
+
+Then restart samba:
+
+service smbd restart; service nmbd restart
+
+or
+
+service samba restart
+
+With this your Linux sharing should already work safely and fast.
+
+Best regards
+
+Luiz Peterli
