@@ -1,4 +1,4 @@
-##### smb, conf #####
+### smb.conf ###
 
 The samba settings described in the file are well commented out, explaining what each option enables or does not enable for file sharing operation in Lnux environments.
 
